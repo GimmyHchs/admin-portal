@@ -11,8 +11,6 @@
 |
 */
 
-Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', 'LoginController@loginView')->name('login');

@@ -15,7 +15,10 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+import Form from './libs/Form.js';
+window.Form = Form;
+
+Vue.component('auth-panel', require('./components/auth/AuthPanel.vue'));
 
 const app = new Vue({
     el: '#app'

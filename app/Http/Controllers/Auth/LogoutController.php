@@ -9,7 +9,7 @@ use Auth;
 class LogoutController extends Controller
 {
     /**
-     * Where to redirect users after login.
+     * Where to redirect users after logout.
      *
      * @var string
      */
