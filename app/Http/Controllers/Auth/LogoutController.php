@@ -17,7 +17,7 @@ class LogoutController extends Controller
 
     public function logout()
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             Auth::logout();
         }
 
