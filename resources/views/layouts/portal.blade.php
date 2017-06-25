@@ -7,21 +7,20 @@
         <a class="navbar-brand" href="#">Admin Portal</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="/permissions">權限管理</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">帳號管理</a></li>
+            </ul>
+            <ul class="nav justify-content-end">
+                @if (Auth::check())
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">{{Auth::user()->name}}</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+                        </div>
+                    <li>
+                @endif
             </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            @if (Auth::check())
-                <ul class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$user->name}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        <button class="dropdown-item" type="button"><a href="{{route('logout')}}">Log out</a></button>
-                    </div>
-              </ul>
-            @endif
-        </ul>
+
     </nav>
 @endsection
 @section('body')

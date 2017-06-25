@@ -67,12 +67,11 @@ export default {
             this.is_failed = false;
             this.form.axios('post', '/login')
             .then(response => {
-                // location.replace(response.redirectTo);
+                location.replace(response.redirectTo);
             })
             .catch(errors => {
                 this.is_failed = true;
                 this.is_posting = false;
-                console.log(errors);
             });
         }
     }

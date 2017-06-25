@@ -42948,11 +42948,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.is_posting = true;
             this.is_failed = false;
             this.form.axios('post', '/login').then(function (response) {
-                // location.replace(response.redirectTo);
+                location.replace(response.redirectTo);
             }).catch(function (errors) {
                 _this.is_failed = true;
                 _this.is_posting = false;
-                console.log(errors);
             });
         }
     }
