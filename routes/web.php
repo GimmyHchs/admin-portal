@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'portal'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+});
+
 Route::group(['namespace' => 'Auth'], function () {
+    Route::get('denied', 'DeniedController@denied')->name('denied');
     Route::get('login', 'LoginController@loginView')->name('login');
     Route::post('login', 'LoginController@login');
     Route::get('logout', 'LogoutController@logout')->name('logout');

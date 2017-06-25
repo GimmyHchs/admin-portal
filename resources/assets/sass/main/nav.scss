@@ -1,0 +1,21 @@
+.navbar-right.right {
+    margin-top: 1%;
+}
+.navbar-right > .item {
+    margin-right: 20px;
+}
+.nav .badge {
+    position: absolute;
+    bottom: 11px;
+    left: 10px;
+    padding: 2px 7px;
+    line-height: 1.1;
+}
+.badge.danger {
+    background: #dc1f1f;
+}
+.navbar-top {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}

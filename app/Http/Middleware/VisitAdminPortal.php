@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class RedirectIfAuthenticated
+class VisitAdminPortal
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/');
+        $user = Auth::user();
+
+        if(! $user->hasPermission('VisitAdminPortal')) {
+            return redirect('/denied');
         }
 
         return $next($request);

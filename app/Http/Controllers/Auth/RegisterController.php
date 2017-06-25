@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
-use App\Accounts\User;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\User;
 use Auth;
 
 class RegisterController extends Controller
@@ -15,7 +15,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     public function register(RegisterRequest $request)
     {
@@ -24,8 +24,6 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
-        Auth::login($user);
 
         return response()->json(['message' => 'success', 'redirectTo' => $this->redirectTo], 200);
     }

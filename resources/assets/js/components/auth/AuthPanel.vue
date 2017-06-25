@@ -1,9 +1,9 @@
 <template lang="html">
-    <div class="panel panel-login">
+    <div class="card panel-login">
         <div class="panel-heading">
             <div class="row">
-                <div @click="switchTo('login')" :class="{'blue-darken-2': isComponent('login')}" class="col-xs-6  bolder pointer">Login</div>
-                <div @click="switchTo('register')" :class="{'blue-darken-2': isComponent('register')}" class="col-xs-6 bolder pointer">Register</div>
+                <div @click="switchTo('login')" :class="{'blue-darken-2': isComponent('login')}" class="col-6  bolder pointer">Login</div>
+                <div @click="switchTo('register')" :class="{'blue-darken-2': isComponent('register')}" class="col-6 bolder pointer">Register</div>
             </div>
             <hr>
         </div>

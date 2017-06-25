@@ -2,10 +2,14 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap.scss";
 
 // Colors from Materialize
 @import "resources/assets/sass/core/colors.scss";
 
 // Global usage style
 @import "resources/assets/sass/core/global.scss";
+
+
+// main
+@import "resources/assets/sass/main/nav.scss";

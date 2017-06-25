@@ -14,7 +14,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,7 +35,7 @@ class LoginController extends Controller
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
-            return response()->json(['message' => 'success', 'redirectTo' => $this->redirectTo], 302);
+            return response()->json(['message' => 'success', 'redirectTo' => $this->redirectTo], 200);
         }
 
         return response()->json(['error' => 'invalid_credentials'], 401);

@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{asset('css/auth.css')}}">
     </head>
     <body>
+        @yield('nav')
         <div id="app" class="container">
             @yield('body')
         </div>
