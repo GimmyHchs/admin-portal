@@ -1,4 +1,4 @@
-@extends('layouts.portal')
+@extends('layouts.base')
 @section('title')
     Admin Portal Login
 @endsection
@@ -8,4 +8,6 @@
             <auth-panel></auth-panel>
         </div>
     </div>
+@endsection
+@section('javascript')
 @endsection

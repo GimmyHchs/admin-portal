@@ -890,6 +890,7 @@ window.Vue = __webpack_require__(35);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+window.RecaptchaSiteKey = '6LfJyiYUAAAAAGxmE-7oF5ckOgn6mtGC1Qmy80wu';
 
 
 window.Form = __WEBPACK_IMPORTED_MODULE_0__libs_Form_js__["a" /* default */];
@@ -42874,6 +42875,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue__);
+//
+//
 //
 //
 //
@@ -42903,7 +42908,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        'recaptcha': __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue___default.a
+    },
     data: function data() {
         return {
             is_posting: false,
@@ -42916,6 +42925,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        validate: function validate() {
+            if (this.is_posting) {
+                return false;
+            }
+
+            return true;
+        },
+        handleRecaptcha: function handleRecaptcha(token) {
+            if (token) {
+                this.form.recaptcha = token;
+                this.submit();
+            } else {
+                alert('please check you are not robot');
+            }
+        },
         submit: function submit() {
             var _this = this;
 
@@ -42924,7 +42948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.is_posting = true;
             this.is_failed = false;
             this.form.axios('post', '/login').then(function (response) {
-                location.replace(response.redirectTo);
+                // location.replace(response.redirectTo);
             }).catch(function (errors) {
                 _this.is_failed = true;
                 _this.is_posting = false;
@@ -43011,6 +43035,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-6 offset-md-3"
+  }, [_c('recaptcha', {
+    attrs: {
+      "data-validate": _vm.validate,
+      "data-callback": _vm.handleRecaptcha
+    }
   }, [(_vm.is_posting) ? _c('button', {
     staticClass: "btn btn-info login-submit",
     attrs: {
@@ -43023,7 +43052,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "name": "submit"
     }
-  }, [_vm._v("Login")])])])])])])])
+  }, [_vm._v("Login")])])], 1)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "alert alert-danger",
@@ -43391,6 +43420,156 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(57),
+  /* template */
+  __webpack_require__(58),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/hchs/Documents/projects/laravel/admin-portal/resources/assets/js/components/auth/ReCaptcha.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ReCaptcha.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-24b52b5e", Component.options)
+  } else {
+    hotAPI.reload("data-v-24b52b5e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+// global window document
+window.recaptchaLoaded = new Promise(function (resolve) {
+    window.vueRecaptchaInit = resolve;
+});
+var recaptchaScript = document.createElement('script');
+recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaInit&render=explicit');
+recaptchaScript.setAttribute('async', '');
+recaptchaScript.setAttribute('defer', '');
+document.body.appendChild(recaptchaScript);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        dataCallback: Function,
+        dataValidate: Function,
+        dataBadge: String,
+        dataType: String,
+        dataErrorcallback: Function,
+        dataTabindex: String,
+        dataSize: String
+    },
+    data: function data() {
+        return {
+            recaptchaId: 0
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        window.recaptchaLoaded.then(function () {
+            try {
+                var options = {
+                    sitekey: RecaptchaSiteKey
+                };
+                if (typeof _this.dataBadge !== 'undefined') options.badge = _this.dataBadge;
+                if (typeof _this.dataType !== 'undefined') options.type = _this.dataType;
+                if (typeof _this.dataTabindex !== 'undefined') options.tabindex = _this.dataTabidex;
+                if (typeof _this.dataSize === 'undefined') {
+                    options.size = 'invisible';
+                    options.callback = _this.getToken;
+                }
+
+                var recaptchaDiv = document.createElement('div');
+                recaptchaDiv.className = "outside-badge";
+                _this.$el.prepend(recaptchaDiv);
+                _this.recaptchaId = window.grecaptcha.render(recaptchaDiv, options);
+            } catch (e) {
+                window.console.error(e);
+            }
+        });
+    },
+
+    methods: {
+        submitData: function submitData(event) {
+            event.preventDefault();
+            if (typeof this.dataSize === 'undefined') {
+                window.grecaptcha.execute(this.recaptchaId);
+            } else {
+                this.getToken(window.grecaptcha.getResponse(this.recaptchaId));
+            }
+        },
+        getToken: function getToken(token) {
+            window.grecaptcha.reset(this.recaptchaId);
+            this.dataCallback(token);
+        }
+    }
+});
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    on: {
+      "click": _vm.submitData
+    }
+  }, [_vm._t("default", [_vm._v("SUBMIT")])], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-24b52b5e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

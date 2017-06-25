@@ -173,7 +173,10 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
 
-
+        /**
+         * InvisibleReCaptcha
+         */
+        AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -16,8 +16,10 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6 offset-md-3">
-                            <button v-if="is_posting" type="submit" class="btn btn-info login-submit" name="submit">Submit...</button>
-                            <button v-else class="btn btn-primary login-submit" type="submit" name="submit">Login</button>
+                            <recaptcha :data-validate="validate" :data-callback="handleRecaptcha">
+                                <button v-if="is_posting" type="submit" class="btn btn-info login-submit" name="submit">Submit...</button>
+                                <button v-else class="btn btn-primary login-submit" type="submit" name="submit">Login</button>
+                            </recaptcha>
                         </div>
                     </div>
                 </div>
@@ -27,7 +29,11 @@
 </template>
 
 <script>
+import Recaptcha from './ReCaptcha.vue';
 export default {
+    components:{
+        'recaptcha':Recaptcha
+    },
     data(){
         return {
             is_posting:false,
@@ -39,6 +45,21 @@ export default {
         }
     },
     methods:{
+        validate() {
+            if(this.is_posting) {
+                return false;
+            }
+
+            return true;
+        },
+        handleRecaptcha(token) {
+            if (token) {
+                this.form.recaptcha = token;
+                this.submit();
+            }else{
+                alert('please check you are not robot');
+            }
+        },
         submit(){
             if(this.is_posting) return;
 
@@ -46,7 +67,7 @@ export default {
             this.is_failed = false;
             this.form.axios('post', '/login')
             .then(response => {
-                location.replace(response.redirectTo);
+                // location.replace(response.redirectTo);
             })
             .catch(errors => {
                 this.is_failed = true;

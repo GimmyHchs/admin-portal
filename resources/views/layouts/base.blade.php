@@ -14,10 +14,12 @@
         <link rel="stylesheet" href="{{asset('css/auth.css')}}">
     </head>
     <body>
-        @yield('nav')
+        @section('nav')
+        @show
         <div id="app" class="container">
             @yield('body')
         </div>
     </body>
     <script src="{{asset('js/app.js')}}" charset="utf-8"></script>
+    @yield('javascript')
 </html>

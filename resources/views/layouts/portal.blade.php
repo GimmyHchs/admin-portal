@@ -25,23 +25,5 @@
     </nav>
 @endsection
 @section('body')
-    {{-- <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                @if (Auth::check())
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$user->name}} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('logout')}}">Log out</a></li>
-                    </ul>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    </nav> --}}
-
     @yield('content')
 @endsection

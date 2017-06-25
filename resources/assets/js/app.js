@@ -14,6 +14,7 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+window.RecaptchaSiteKey = '6LfJyiYUAAAAAGxmE-7oF5ckOgn6mtGC1Qmy80wu';
 
 import Form from './libs/Form.js';
 window.Form = Form;
