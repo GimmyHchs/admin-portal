@@ -13,13 +13,11 @@ class LogoutController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/';
 
     public function logout()
     {
-        if (Auth::user()) {
-            Auth::logout();
-        }
+        Auth::logout();
 
         return redirect($this->redirectTo);
     }

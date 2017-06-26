@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 50)->unique()->comment('登入帳號');
             $table->string('password', 100);
             $table->string('reset_token', 100)->nullable();
-            $table->string('update_by', 20)->nullable();
             $table->rememberToken();
+            $table->string('update_by', 20)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
