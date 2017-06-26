@@ -5,8 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Role;
-use App\Permission;
+use App\Auth\Role;
+use App\Auth\Permission;
 
 class RoleTest extends TestCase
 {

@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Auth\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -23,14 +23,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Role::class, function (Faker\Generator $faker) {
+$factory->define(App\Auth\Role::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence,
     ];
 });
 
-$factory->define(App\Permission::class, function (Faker\Generator $faker) {
+$factory->define(App\Auth\Permission::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->sentence,

@@ -12,11 +12,13 @@
 */
 
 
-Route::group(['middleware' => 'portal'], function () {
+Route::group(['middleware' => ['portal', 'auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
 });
 
 Route::group(['namespace' => 'Auth'], function () {
+    Route::post('/send-reset-mail', 'ResetPasswordController@sendResetMail')->name('send-reset-mail');
+    Route::get('/reset', 'ResetPasswordController@reset')->name('reset-password');
     Route::get('denied', 'DeniedController@denied')->name('denied');
     Route::get('login', 'LoginController@loginView')->name('login');
     Route::post('login', 'LoginController@login');
