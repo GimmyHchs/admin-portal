@@ -14,6 +14,7 @@ class Role extends Model
     protected $fillable = [
         'name',
         'description',
+        'update_by',
     ];
 
     public function permissions()
