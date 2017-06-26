@@ -20,6 +20,7 @@ import Form from './libs/Form.js';
 window.Form = Form;
 
 Vue.component('auth-panel', require('./components/auth/AuthPanel.vue'));
+Vue.component('reset-password-form', require('./components/auth/ResetPasswordForm.vue'));
 
 const app = new Vue({
     el: '#app'

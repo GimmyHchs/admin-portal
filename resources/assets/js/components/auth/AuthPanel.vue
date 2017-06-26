@@ -4,7 +4,7 @@
             <div class="row">
                 <div @click="switchTo('login')" :class="{'blue-darken-2': isComponent('login')}" class="col-4  bolder pointer">Login</div>
                 <div @click="switchTo('register')" :class="{'blue-darken-2': isComponent('register')}" class="col-4 bolder pointer">Register</div>
-                <div @click="switchTo('reset')" :class="{'blue-darken-2': isComponent('reset')}" class="col-4 bolder pointer">ResetPassword</div>
+                <div @click="switchTo('reset')" :class="{'blue-darken-2': isComponent('reset')}" class="col-4 bolder pointer">Reset</div>
             </div>
             <hr>
         </div>
@@ -22,7 +22,7 @@
 <script>
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import ResetForm from './ResetPasswordForm';
+import ResetForm from './SendResetMailForm';
 
 export default {
     components:{

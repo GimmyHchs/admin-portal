@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\Auth\PasswordRequest;
 use App\Auth\User;
 use App\Auth\ResetPasswordNotify;
 use Hash;
@@ -24,15 +24,25 @@ class ResetPasswordController extends Controller
         return response()->json(['message' => '重設密碼信已寄出']);
     }
 
-    public function reset(Request $request)
+    public function resetForm(Request $request)
     {
-        $email = $request->email;
-        $token = $request->reset_token;
-        $user = User::where('email', $email)->first();
-        if($token == $user->reset_token) {
-            dd('可改密碼');
+        $user = User::where('email', $request->email)->first();
+        $email = $user->email;
+
+        if(!($request->reset_token == $user->reset_token) || !$user->reset_token) {
+            return response()->json(['message' => 'token mismatch...'], 403);
         }
 
-        dd($email.$token);
+        return view('auth.passwords.reset', compact('email'));
+    }
+
+    public function reset(PasswordRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        $user->password = bcrypt($request->password);
+        $user->reset_token = null;
+        $user->save();
+
+        return response()->json(['message' => 'success', 'redirectTo' => '/login']);
     }
 }
