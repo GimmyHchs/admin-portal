@@ -11,15 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <link rel="stylesheet" href="{{asset('css/auth.css')}}">
+        @yield('meta')
     </head>
-    <body>
-        @section('nav')
-        @show
-        <div id="app" class="container">
-            @yield('body')
-        </div>
-    </body>
+
+        @yield('content')
+
     <script src="{{asset('js/app.js')}}" charset="utf-8"></script>
     @yield('javascript')
 </html>

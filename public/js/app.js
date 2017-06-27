@@ -863,8 +863,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(55);
-module.exports = __webpack_require__(56);
+__webpack_require__(56);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
@@ -873,7 +873,7 @@ module.exports = __webpack_require__(56);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_Form_js__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_Form_js__ = __webpack_require__(37);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -885,7 +885,7 @@ __webpack_require__(11);
 
 window.Vue = __webpack_require__(35);
 
-__webpack_require__(67);
+__webpack_require__(36);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -896,8 +896,8 @@ window.RecaptchaSiteKey = '6LfJyiYUAAAAAGxmE-7oF5ckOgn6mtGC1Qmy80wu';
 
 window.Form = __WEBPACK_IMPORTED_MODULE_0__libs_Form_js__["a" /* default */];
 
-Vue.component('auth-panel', __webpack_require__(37));
-Vue.component('reset-password-form', __webpack_require__(52));
+Vue.component('auth-panel', __webpack_require__(38));
+Vue.component('reset-password-form', __webpack_require__(53));
 
 var app = new Vue({
   el: '#app'
@@ -42599,6 +42599,151 @@ module.exports = Vue$3;
 
 /***/ }),
 /* 36 */
+/***/ (function(module, exports) {
+
+/*****
+* CONFIGURATION
+*/
+//Main navigation
+$.navigation = $('nav > ul.nav');
+
+$.panelIconOpened = 'icon-arrow-up';
+$.panelIconClosed = 'icon-arrow-down';
+
+//Default colours
+$.brandPrimary = '#20a8d8';
+$.brandSuccess = '#4dbd74';
+$.brandInfo = '#63c2de';
+$.brandWarning = '#f8cb00';
+$.brandDanger = '#f86c6b';
+
+$.grayDark = '#2a2c36';
+$.gray = '#55595c';
+$.grayLight = '#818a91';
+$.grayLighter = '#d1d4d7';
+$.grayLightest = '#f8f9fa';
+
+'use strict';
+
+/****
+* MAIN NAVIGATION
+*/
+
+$(document).ready(function ($) {
+
+  // Add class .active to current link
+  $.navigation.find('a').each(function () {
+
+    var cUrl = String(window.location).split('?')[0];
+
+    if (cUrl.substr(cUrl.length - 1) == '#') {
+      cUrl = cUrl.slice(0, -1);
+    }
+
+    if ($($(this))[0].href == cUrl) {
+      $(this).addClass('active');
+
+      $(this).parents('ul').add(this).each(function () {
+        $(this).parent().addClass('open');
+      });
+    }
+  });
+
+  // Dropdown Menu
+  $.navigation.on('click', 'a', function (e) {
+
+    if ($.ajaxLoad) {
+      e.preventDefault();
+    }
+
+    if ($(this).hasClass('nav-dropdown-toggle')) {
+      $(this).parent().toggleClass('open');
+      resizeBroadcast();
+    }
+  });
+
+  function resizeBroadcast() {
+
+    var timesRun = 0;
+    var interval = setInterval(function () {
+      timesRun += 1;
+      if (timesRun === 5) {
+        clearInterval(interval);
+      }
+      window.dispatchEvent(new Event('resize'));
+    }, 62.5);
+  }
+
+  /* ---------- Main Menu Open/Close, Min/Full ---------- */
+  $('.navbar-toggler').click(function () {
+
+    if ($(this).hasClass('sidebar-toggler')) {
+      $('body').toggleClass('sidebar-hidden');
+      resizeBroadcast();
+    }
+
+    if ($(this).hasClass('sidebar-minimizer')) {
+      $('body').toggleClass('sidebar-minimized');
+      resizeBroadcast();
+    }
+
+    if ($(this).hasClass('aside-menu-toggler')) {
+      $('body').toggleClass('aside-menu-hidden');
+      resizeBroadcast();
+    }
+
+    if ($(this).hasClass('mobile-sidebar-toggler')) {
+      $('body').toggleClass('sidebar-mobile-show');
+      resizeBroadcast();
+    }
+  });
+
+  $('.sidebar-close').click(function () {
+    $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
+  });
+
+  /* ---------- Disable moving to top ---------- */
+  $('a[href="#"][data-top!=true]').click(function (e) {
+    e.preventDefault();
+  });
+});
+
+/****
+* CARDS ACTIONS
+*/
+
+$(document).on('click', '.card-actions a', function (e) {
+  e.preventDefault();
+
+  if ($(this).hasClass('btn-close')) {
+    $(this).parent().parent().parent().fadeOut();
+  } else if ($(this).hasClass('btn-minimize')) {
+    var $target = $(this).parent().parent().next('.card-block');
+    if (!$(this).hasClass('collapsed')) {
+      $('i', $(this)).removeClass($.panelIconOpened).addClass($.panelIconClosed);
+    } else {
+      $('i', $(this)).removeClass($.panelIconClosed).addClass($.panelIconOpened);
+    }
+  } else if ($(this).hasClass('btn-setting')) {
+    $('#myModal').modal('show');
+  }
+});
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function init(url) {
+
+  /* ---------- Tooltip ---------- */
+  $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
+
+  /* ---------- Popover ---------- */
+  $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
+}
+
+/***/ }),
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42722,15 +42867,15 @@ var FormErrors = function () {
 }();
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(52),
   /* styles */
   null,
   /* scopeId */
@@ -42762,16 +42907,16 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoginForm__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoginForm__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoginForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__LoginForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RegisterForm__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RegisterForm__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RegisterForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__RegisterForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SendResetMailForm__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SendResetMailForm__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SendResetMailForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__SendResetMailForm__);
 //
 //
@@ -42822,15 +42967,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(40),
+  __webpack_require__(41),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(45),
   /* styles */
   null,
   /* scopeId */
@@ -42862,12 +43007,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ReCaptcha_vue__);
 //
 //
@@ -42950,15 +43095,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(42),
-  /* template */
   __webpack_require__(43),
+  /* template */
+  __webpack_require__(44),
   /* styles */
   null,
   /* scopeId */
@@ -42990,7 +43135,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43073,7 +43218,7 @@ document.body.appendChild(recaptchaScript);
 });
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43092,7 +43237,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43203,15 +43348,15 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(46),
-  /* template */
   __webpack_require__(47),
+  /* template */
+  __webpack_require__(48),
   /* styles */
   null,
   /* scopeId */
@@ -43243,7 +43388,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43317,7 +43462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43487,15 +43632,15 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(49),
-  /* template */
   __webpack_require__(50),
+  /* template */
+  __webpack_require__(51),
   /* styles */
   null,
   /* scopeId */
@@ -43527,7 +43672,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43597,7 +43742,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43685,7 +43830,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43751,15 +43896,15 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(53),
-  /* template */
   __webpack_require__(54),
+  /* template */
+  __webpack_require__(55),
   /* styles */
   null,
   /* scopeId */
@@ -43791,7 +43936,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43867,7 +44012,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -44010,171 +44155,16 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 56 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */
+/* 57 */
 /***/ (function(module, exports) {
 
-/*****
-* CONFIGURATION
-*/
-//Main navigation
-$.navigation = $('nav > ul.nav');
-
-$.panelIconOpened = 'icon-arrow-up';
-$.panelIconClosed = 'icon-arrow-down';
-
-//Default colours
-$.brandPrimary = '#20a8d8';
-$.brandSuccess = '#4dbd74';
-$.brandInfo = '#63c2de';
-$.brandWarning = '#f8cb00';
-$.brandDanger = '#f86c6b';
-
-$.grayDark = '#2a2c36';
-$.gray = '#55595c';
-$.grayLight = '#818a91';
-$.grayLighter = '#d1d4d7';
-$.grayLightest = '#f8f9fa';
-
-'use strict';
-
-/****
-* MAIN NAVIGATION
-*/
-
-$(document).ready(function ($) {
-
-  // Add class .active to current link
-  $.navigation.find('a').each(function () {
-
-    var cUrl = String(window.location).split('?')[0];
-
-    if (cUrl.substr(cUrl.length - 1) == '#') {
-      cUrl = cUrl.slice(0, -1);
-    }
-
-    if ($($(this))[0].href == cUrl) {
-      $(this).addClass('active');
-
-      $(this).parents('ul').add(this).each(function () {
-        $(this).parent().addClass('open');
-      });
-    }
-  });
-
-  // Dropdown Menu
-  $.navigation.on('click', 'a', function (e) {
-
-    if ($.ajaxLoad) {
-      e.preventDefault();
-    }
-
-    if ($(this).hasClass('nav-dropdown-toggle')) {
-      $(this).parent().toggleClass('open');
-      resizeBroadcast();
-    }
-  });
-
-  function resizeBroadcast() {
-
-    var timesRun = 0;
-    var interval = setInterval(function () {
-      timesRun += 1;
-      if (timesRun === 5) {
-        clearInterval(interval);
-      }
-      window.dispatchEvent(new Event('resize'));
-    }, 62.5);
-  }
-
-  /* ---------- Main Menu Open/Close, Min/Full ---------- */
-  $('.navbar-toggler').click(function () {
-
-    if ($(this).hasClass('sidebar-toggler')) {
-      $('body').toggleClass('sidebar-hidden');
-      resizeBroadcast();
-    }
-
-    if ($(this).hasClass('sidebar-minimizer')) {
-      $('body').toggleClass('sidebar-minimized');
-      resizeBroadcast();
-    }
-
-    if ($(this).hasClass('aside-menu-toggler')) {
-      $('body').toggleClass('aside-menu-hidden');
-      resizeBroadcast();
-    }
-
-    if ($(this).hasClass('mobile-sidebar-toggler')) {
-      $('body').toggleClass('sidebar-mobile-show');
-      resizeBroadcast();
-    }
-  });
-
-  $('.sidebar-close').click(function () {
-    $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
-  });
-
-  /* ---------- Disable moving to top ---------- */
-  $('a[href="#"][data-top!=true]').click(function (e) {
-    e.preventDefault();
-  });
-});
-
-/****
-* CARDS ACTIONS
-*/
-
-$(document).on('click', '.card-actions a', function (e) {
-  e.preventDefault();
-
-  if ($(this).hasClass('btn-close')) {
-    $(this).parent().parent().parent().fadeOut();
-  } else if ($(this).hasClass('btn-minimize')) {
-    var $target = $(this).parent().parent().next('.card-block');
-    if (!$(this).hasClass('collapsed')) {
-      $('i', $(this)).removeClass($.panelIconOpened).addClass($.panelIconClosed);
-    } else {
-      $('i', $(this)).removeClass($.panelIconClosed).addClass($.panelIconOpened);
-    }
-  } else if ($(this).hasClass('btn-setting')) {
-    $('#myModal').modal('show');
-  }
-});
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function init(url) {
-
-  /* ---------- Tooltip ---------- */
-  $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
-
-  /* ---------- Popover ---------- */
-  $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
-}
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
