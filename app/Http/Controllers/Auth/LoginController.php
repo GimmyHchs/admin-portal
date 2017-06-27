@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password], true))
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
             return response()->json(['message' => 'success', 'redirectTo' => $this->redirectTo], 200);
         }

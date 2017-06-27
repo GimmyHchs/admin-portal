@@ -22,5 +22,7 @@ class UserTableSeeder extends Seeder
         foreach (Permission::all() as $permission) {
             $user->permissions()->save($permission);
         }
+
+        factory(User::class, 50)->create();
     }
 }

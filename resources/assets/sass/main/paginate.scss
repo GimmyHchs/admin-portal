@@ -1,0 +1,20 @@
+.pagination li span {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #3097d1;
+    background-color: color(indigo-lighten-5);
+    border: 1px solid #ddd;
+}
+.pagination li:first-child span
+{
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+}
+.pagination li:last-child span
+{
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}

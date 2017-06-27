@@ -1,8 +1,6 @@
 /*****
 * CONFIGURATION
 */
-    //Main navigation
-    $.navigation = $('nav > ul.nav');
 
   $.panelIconOpened = 'icon-arrow-up';
   $.panelIconClosed = 'icon-arrow-down';
@@ -27,6 +25,8 @@
 */
 
 $(document).ready(function($){
+  //Main navigation
+  $.navigation = $('nav > ul.nav');
 
   // Add class .active to current link
   $.navigation.find('a').each(function(){
@@ -47,6 +47,7 @@ $(document).ready(function($){
   });
 
   // Dropdown Menu
+  console.log('herher');
   $.navigation.on('click', 'a', function(e){
 
     if ($.ajaxLoad) {
