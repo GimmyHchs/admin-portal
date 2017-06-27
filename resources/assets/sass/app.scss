@@ -1,15 +1,20 @@
-// Variables
+// globla variables
 @import "variables";
 
-// Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+// Bootstrap 4
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Colors from Materialize
 @import "resources/assets/sass/core/colors.scss";
 
+// Core-UI template style
+@import "resources/assets/sass/libs/core-ui/style.scss";
+
 // Global usage style
 @import "resources/assets/sass/core/global.scss";
-
 
 // main
 @import "resources/assets/sass/main/nav.scss";

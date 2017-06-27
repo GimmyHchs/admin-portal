@@ -9,6 +9,7 @@
                     Dashboard
                 </div>
                 <div class="card-block">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
                     <p class="card-text">
                         Hi, {{$user->name}} ! You are logged in!
                     </p>
