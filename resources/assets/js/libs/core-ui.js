@@ -47,7 +47,6 @@ $(document).ready(function($){
   });
 
   // Dropdown Menu
-  console.log('herher');
   $.navigation.on('click', 'a', function(e){
 
     if ($.ajaxLoad) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\UpdateUserRequest;
 use App\Auth\User;
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'ASC')->paginate(10);
+        $users = User::orderBy('id', 'ASC')->paginate(15);
 
         return view('users.index', compact('users'));
     }
@@ -42,6 +43,8 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
+        session()->flash('success', 'The user '.$user->name.' is created !');
+
         return redirect()->route('users.index');
     }
 
@@ -64,7 +67,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -74,9 +79,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->fill($request->except([
+            'password',
+            'email',
+        ]));
+
+        if($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+        session()->flash('success', 'The user '.$user->name.' is updated !');
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -87,6 +105,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        session()->flash('success', 'The user '.$user->name.' is deleted !');
+
+        return redirect()->route('users.index');
     }
 }

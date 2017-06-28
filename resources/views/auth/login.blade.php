@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     <body>
-        <div id="app">
+        <div id="app" class="container">
             <div class="row">
                 <div class="col-6 offset-md-3">
                     <auth-panel></auth-panel>

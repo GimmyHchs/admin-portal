@@ -10,6 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 require('./libs/core-ui.js');
+require('./libs/a_delete_method.js');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
